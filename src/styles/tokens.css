@@ -1,0 +1,45 @@
+:root {
+  /* ---- Palette: warm ivory paper, ink, and the logo's camera green ---- */
+  --paper:       #f6f2ea;   /* page background */
+  --paper-deep:  #ece6da;   /* alt sections / image placeholder */
+  --paper-warm:  #e4dccc;
+  --ink:         #1a1d1b;   /* green-black text */
+  --ink-soft:    #4a4f4b;   /* secondary text */
+  --stone:       #85877f;   /* muted labels */
+  --line:        rgba(26, 29, 27, 0.16);
+  --line-soft:   rgba(26, 29, 27, 0.08);
+  --green:       #368071;   /* sampled from the logo's twin-lens camera */
+  --green-deep:  #1f5146;
+  --green-wash:  #e2eae3;   /* pale tint for the trust band */
+  --whatsapp:    #1f7a52;
+
+  /* ---- Type ---- */
+  --font-display: "Cormorant Garamond Variable", "Cormorant Garamond", Garamond, Georgia, serif;
+  --font-sans:    "Figtree Variable", "Figtree", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* fluid display sizes */
+  --fs-display: clamp(3.2rem, 8.6vw, 8rem);
+  --fs-h1:      clamp(2.2rem, 4.8vw, 3.8rem);
+  --fs-h2:      clamp(1.8rem, 3.4vw, 2.8rem);
+  --fs-h3:      clamp(1.4rem, 2.3vw, 2.05rem);
+  --fs-lead:    clamp(1.02rem, 1.3vw, 1.18rem);
+  --fs-body:    0.98rem;
+  --fs-small:   0.84rem;
+  --fs-eyebrow: 0.7rem;
+
+  --tracking-wide:  0.2em;
+  --tracking-wider: 0.32em;
+
+  /* ---- Spacing & layout ---- */
+  --gutter: clamp(1.25rem, 5vw, 5rem);
+  --maxw: 1480px;
+  --maxw-text: 62ch;
+  --section-y: clamp(4.5rem, 11vw, 10.5rem);
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur: 0.7s;
+
+  --header-h: 6rem;
+}

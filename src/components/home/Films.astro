@@ -1,0 +1,123 @@
+---
+// Wedding films — a poster that swaps to a YouTube embed only when clicked
+// (keeps the page fast). With no film id yet, it links to the channel.
+import Frame from '../Frame.astro';
+import { films, site } from '../../data/site';
+import { filmPoster } from '../../data/photos';
+
+const film = films[0];
+const poster = filmPoster(film.poster);
+const hasId = film.youtubeId.length > 0;
+---
+
+<section class="films section" aria-labelledby="films-title">
+  <div class="container">
+    <header class="films__head reveal">
+      <p class="eyebrow">Cinematic weddings</p>
+      <h2 id="films-title" class="films__title">Some days deserve to be <em>heard</em>, too.</h2>
+      <p class="films__intro">
+        The vows, the nadaswaram, your father's speech, the laughter at the sangeet —
+        our films are cut to sit beside the photographs, telling the same story in motion.
+      </p>
+    </header>
+
+    <div class="films__player reveal" data-film={hasId ? film.youtubeId : undefined}>
+      <Frame image={poster.image} alt={poster.alt} ratio="16 / 9"
+        sizes="(max-width: 900px) 94vw, 80vw" widths={[700, 1100, 1500, 1900]} />
+      {hasId ? (
+        <button class="films__play" type="button" aria-label={`Play ${film.title}`}>
+          <span class="films__icon" aria-hidden="true"></span>
+          <span class="films__label">Play film</span>
+        </button>
+      ) : (
+        <a class="films__play" href={site.youtube} target="_blank" rel="noopener">
+          <span class="films__icon" aria-hidden="true"></span>
+          <span class="films__label">Watch our films on YouTube</span>
+        </a>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .films__head {
+    display: grid;
+    gap: 1.2rem;
+    justify-items: center;
+    text-align: center;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+  .films__head .eyebrow { color: var(--green-deep); }
+  .films__title { font-size: var(--fs-h1); max-width: 18ch; }
+  .films__intro { color: var(--ink-soft); max-width: 54ch; }
+
+  .films__player {
+    position: relative;
+    max-width: 1200px;
+    margin-inline: auto;
+  }
+  .films__player :global(iframe) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .films__play {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 1rem;
+    color: #fff;
+    background: linear-gradient(180deg, rgba(10, 14, 12, 0.05), rgba(10, 14, 12, 0.45));
+    transition: background 0.5s var(--ease);
+  }
+  .films__play:hover { background: linear-gradient(180deg, rgba(10, 14, 12, 0.15), rgba(10, 14, 12, 0.6)); }
+  .films__icon {
+    width: clamp(64px, 8vw, 92px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    position: relative;
+    transition: transform 0.5s var(--ease-out);
+  }
+  .films__icon::after {
+    content: '';
+    position: absolute;
+    left: 54%;
+    top: 50%;
+    translate: -50% -50%;
+    border-style: solid;
+    border-width: 10px 0 10px 16px;
+    border-color: transparent transparent transparent #fff;
+  }
+  .films__play:hover .films__icon { transform: scale(1.08); }
+  .films__label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+  }
+</style>
+
+<script>
+  function initFilms() {
+    document.querySelectorAll<HTMLElement>('[data-film]').forEach((el) => {
+      const btn = el.querySelector('button.films__play');
+      if (!btn || el.dataset.bound) return;
+      el.dataset.bound = 'true';
+      btn.addEventListener('click', () => {
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube-nocookie.com/embed/${el.dataset.film}?autoplay=1&rel=0`;
+        iframe.title = 'Wedding film';
+        iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+        el.appendChild(iframe);
+        btn.remove();
+      });
+    });
+  }
+  initFilms();
+  document.addEventListener('astro:page-load', initFilms);
+</script>

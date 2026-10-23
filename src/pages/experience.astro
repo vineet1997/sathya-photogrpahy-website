@@ -1,0 +1,253 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Frame from '../components/Frame.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { experienceShots } from '../data/photos';
+
+const services = [
+  {
+    k: 'Weddings',
+    d: 'Complete coverage of every ceremony — Pellikuthuru and Pellikoduku, the muhurtham, Talambralu, the reception and the Appagintalu farewell. Candid storytelling and the traditional frames your family expects, together.',
+    incl: ['Candid + traditional photography', 'Every event, from haldi to reception', 'Hand-edited online gallery', 'Premium printed albums'],
+    shot: experienceShots[0],
+  },
+  {
+    k: 'Pre-weddings & couple shoots',
+    d: 'An unhurried day together before the wedding rush begins — in a temple town, a hill station, a palace, or somewhere that means something to the two of you.',
+    incl: ['Location ideas & planning', 'Wardrobe and styling guidance', 'Photographs and a short film'],
+    shot: experienceShots[1],
+  },
+  {
+    k: 'Cinematic films',
+    d: 'We love moving pictures as much as stills. Our films gather the cuts and callouts, the music and the speeches, into a story that sits perfectly beside your photographs.',
+    incl: ['Highlight film', 'Full-length wedding film', 'Teaser for social media'],
+    shot: experienceShots[2],
+  },
+  {
+    k: 'Destination',
+    d: 'Wherever your celebration unfolds — Ooty, Goa, Rajasthan or Kuala Lumpur — we travel with the same team, so your story is told in one consistent voice.',
+    incl: ['Travel across India & overseas', 'Recce and logistics planned with you', 'Same team, start to finish'],
+    shot: experienceShots[3],
+  },
+];
+
+const steps = [
+  { n: '01', t: 'A first conversation', d: 'Call, WhatsApp or visit the studio in Vanasthalipuram. Tell us your dates, your events and your families — and look through real albums from real weddings.' },
+  { n: '02', t: 'Planning around your muhurtham', d: 'We map every event against the muhurtham, the light and the venue, so the right people are in the right place for every ritual.' },
+  { n: '03', t: 'On the day', d: 'We work calmly and quietly — never hurrying a ritual for a pose — capturing the candid moments and the traditional frames your elders will look for.' },
+  { n: '04', t: 'Your gallery, album & film', d: 'Every frame is hand-edited. You receive an online gallery, a printed album designed with you, and your wedding film.' },
+];
+
+// TODO(client): confirm all delivery timelines below.
+const details = [
+  { t: 'Sneak peek', d: 'A handful of favourite frames within days of the wedding — to share with family.' },
+  { t: 'Photographs', d: 'Your full, hand-edited gallery in around four to six weeks.' },
+  { t: 'Films', d: 'Highlight film and full-length film in around eight weeks.' },
+  { t: 'Booking', d: 'Muhurtham dates book out early — most couples reach out three to six months ahead.' },
+];
+
+// TODO(client): review every answer.
+const faqs = [
+  { q: 'Do you cover both candid and traditional photography?', a: 'Yes. Every wedding gets both — candid storytelling and the complete traditional coverage elders look for in the album. It is one team, so the two never compete.' },
+  { q: 'How many photographers and videographers will come?', a: 'It depends on the size of your wedding and the number of events. We will recommend a team after our first conversation, so you are never under- or over-covered.' },
+  { q: 'Do you travel outside Hyderabad and Visakhapatnam?', a: 'All the time — across Telangana and Andhra Pradesh, to destinations within India, and overseas. Travel and stay are planned with you up front.' },
+  { q: 'Can we see a full wedding, not just highlights?', a: 'Of course. Visit the studio and we will walk you through complete albums and full galleries from weddings like yours.' },
+  { q: 'How do we book our date?', a: 'Once you are happy with the plan, a booking advance confirms your date. We will share the details with our collections.' },
+  { q: 'What does it cost?', a: 'Every wedding is different, so every collection is tailored to your events and coverage. Share your dates and we will send our collections and availability.' },
+];
+---
+
+<BaseLayout
+  title="Experience"
+  description="Wedding photography, pre-wedding shoots, cinematic films and destination coverage by Sathya Photography — how we work, what is included, and answers to your questions."
+>
+  <PageHeader
+    eyebrow="The Experience"
+    title="What it's like to have us at your <em>wedding</em>."
+    intro="Calm, prepared and entirely focused on your families. Here is how we work, what we cover, and what you can expect once the celebrations are over."
+  />
+
+  <section class="section approach">
+    <div class="container">
+      <p class="eyebrow approach__eyebrow reveal">How we work</p>
+      <ol class="approach__list">
+        {steps.map((s) => (
+          <li class="approach__step reveal">
+            <span class="approach__n">{s.n}</span>
+            <div>
+              <h3 class="approach__t">{s.t}</h3>
+              <p class="approach__d">{s.d}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section services">
+    <div class="container">
+      {services.map((s, i) => (
+        <article class={`service ${i % 2 === 1 ? 'service--rev' : ''} reveal`}>
+          <div class="service__img">
+            <Frame image={s.shot.image} alt={`${s.k} — ${s.shot.alt}`} ratio="3 / 2"
+              sizes="(max-width: 860px) 90vw, 48vw" />
+          </div>
+          <div class="service__text">
+            <h2 class="service__title">{s.k}</h2>
+            <p class="service__desc">{s.d}</p>
+            <ul class="service__incl reset">
+              {s.incl.map((it) => <li>{it}</li>)}
+            </ul>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section details">
+    <div class="container">
+      <p class="eyebrow details__eyebrow reveal">The details</p>
+      <div class="details__grid">
+        {details.map((d) => (
+          <div class="details__item reveal">
+            <h3 class="details__t">{d.t}</h3>
+            <p class="details__d">{d.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section faq" aria-labelledby="faq-title">
+    <div class="container faq__grid">
+      <div class="faq__head reveal">
+        <p class="eyebrow">Questions</p>
+        <h2 id="faq-title" class="faq__title">Things couples (and parents) <em>often ask</em>.</h2>
+      </div>
+      <div class="faq__list">
+        {faqs.map((f) => (
+          <details class="faq__item reveal">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand line="Let's plan your <em>wedding days</em>." />
+</BaseLayout>
+
+<style>
+  .approach__eyebrow,
+  .details__eyebrow { text-align: center; margin-bottom: clamp(2.5rem, 6vw, 4rem); color: var(--green-deep); }
+  .approach__list {
+    list-style: none;
+    padding: 0;
+    max-width: 60rem;
+    margin-inline: auto;
+    display: grid;
+  }
+  .approach__step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    padding-block: clamp(1.8rem, 4vw, 2.8rem);
+    border-top: 1px solid var(--line-soft);
+    align-items: baseline;
+  }
+  .approach__step:last-child { border-bottom: 1px solid var(--line-soft); }
+  .approach__n {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-style: italic;
+    color: var(--green);
+  }
+  .approach__t { font-size: var(--fs-h3); margin-bottom: 0.6rem; }
+  .approach__d { color: var(--ink-soft); max-width: 50ch; }
+
+  .services { border-top: 1px solid var(--line-soft); }
+  .service {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: center;
+    padding-block: clamp(2.5rem, 6vw, 5rem);
+  }
+  .service__img { width: 100%; }
+  .service--rev .service__img { order: 2; }
+  .service__title { font-size: var(--fs-h1); margin-bottom: 1.1rem; }
+  .service__desc { color: var(--ink-soft); max-width: 44ch; margin-bottom: 1.6rem; }
+  .service__incl { display: grid; gap: 0.6rem; font-size: 0.86rem; }
+  .service__incl li { padding-left: 1.4rem; position: relative; color: var(--ink-soft); }
+  .service__incl li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.75em;
+    width: 0.55rem; height: 1px;
+    background: var(--green);
+  }
+
+  .details { background: var(--green-wash); }
+  .details__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    border-top: 1px solid var(--line);
+    padding-top: clamp(2rem, 4vw, 3rem);
+  }
+  .details__t { font-size: 1.6rem; margin-bottom: 0.7rem; }
+  .details__d { color: var(--ink-soft); font-size: 0.92rem; }
+
+  .faq__grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: start;
+  }
+  .faq__head { display: grid; gap: 1rem; position: sticky; top: 2rem; }
+  .faq__head .eyebrow { color: var(--green-deep); }
+  .faq__title { font-size: var(--fs-h1); max-width: 14ch; }
+  .faq__item { border-top: 1px solid var(--line); }
+  .faq__item:last-child { border-bottom: 1px solid var(--line); }
+  .faq__item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 1.4rem 2.5rem 1.4rem 0;
+    position: relative;
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 1.9vw, 1.55rem);
+    line-height: 1.25;
+  }
+  .faq__item summary::-webkit-details-marker { display: none; }
+  .faq__item summary::after {
+    content: '+';
+    position: absolute;
+    right: 0.2rem;
+    top: 1.2rem;
+    font-family: var(--font-sans);
+    font-weight: 300;
+    font-size: 1.5rem;
+    color: var(--green);
+    transition: transform 0.4s var(--ease);
+  }
+  .faq__item[open] summary::after { transform: rotate(45deg); }
+  .faq__item p { color: var(--ink-soft); padding-bottom: 1.5rem; max-width: 58ch; }
+
+  @media (max-width: 860px) {
+    .service { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+    .service--rev .service__img { order: 0; }
+    .service__desc, .service__incl { margin-inline: auto; }
+    .service__incl li { text-align: left; }
+    .faq__grid { grid-template-columns: 1fr; }
+    .faq__head { position: static; text-align: center; justify-items: center; }
+  }
+  @media (max-width: 760px) {
+    .details__grid { grid-template-columns: 1fr 1fr; }
+    .approach__step { grid-template-columns: 1fr; gap: 0.3rem; }
+  }
+  @media (max-width: 440px) {
+    .details__grid { grid-template-columns: 1fr; }
+  }
+</style>

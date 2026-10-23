@@ -1,0 +1,131 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo-full.png';
+import { nav, site, whatsappHref } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <a href="/" class="site-footer__mark" aria-label={`${site.name} — home`}>
+      <Image src={logo} alt={site.name} widths={[260, 420]} sizes="190px" loading="lazy" />
+    </a>
+
+    <div class="site-footer__cols">
+      <div class="site-footer__col">
+        <p class="eyebrow">Visit the studio</p>
+        <address>
+          {site.address.line1}<br />
+          {site.address.line2}<br />
+          {site.address.region} {site.address.postcode}
+        </address>
+        <a class="site-footer__link" href={site.address.mapsUrl} target="_blank" rel="noopener">Get directions →</a>
+      </div>
+
+      <div class="site-footer__col">
+        <p class="eyebrow">Say hello</p>
+        <a href={whatsappHref()} target="_blank" rel="noopener">WhatsApp us</a>
+        <a href={site.phone.href}>{site.phone.label}</a>
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+
+      <div class="site-footer__col">
+        <p class="eyebrow">Follow along</p>
+        <a href={site.instagram.url} target="_blank" rel="noopener">Instagram</a>
+        <a href={site.youtube} target="_blank" rel="noopener">YouTube</a>
+        <a href={site.vimeo} target="_blank" rel="noopener">Vimeo</a>
+        <a href={site.facebook} target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+
+    <nav class="site-footer__nav" aria-label="Footer">
+      <a href="/">Home</a>
+      {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+
+    <div class="site-footer__meta">
+      <span>© {year} {site.name} · Hyderabad &amp; Visakhapatnam</span>
+      <span>Photographing weddings since {site.founded}</span>
+    </div>
+
+    <p class="site-footer__credit">
+      Crafted by <a href="https://shutterselect.com" target="_blank" rel="noopener">Shutter&nbsp;Select</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--line-soft);
+    padding-block: clamp(3.5rem, 8vw, 6rem) clamp(5.5rem, 8vw, 4rem);
+    text-align: center;
+  }
+  .site-footer__inner {
+    display: grid;
+    justify-items: center;
+    gap: clamp(2rem, 4vw, 3rem);
+  }
+  .site-footer__mark :global(img) {
+    width: clamp(130px, 18vw, 180px);
+    height: auto;
+  }
+
+  .site-footer__cols {
+    width: 100%;
+    max-width: 62rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  .site-footer__col {
+    display: grid;
+    gap: 0.45rem;
+    align-content: start;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+  }
+  .site-footer__col .eyebrow { margin-bottom: 0.4rem; }
+  .site-footer__col address { font-style: normal; line-height: 1.65; }
+  .site-footer__col a { transition: color 0.3s var(--ease); }
+  .site-footer__col a:hover { color: var(--green-deep); }
+  .site-footer__link { color: var(--green-deep); margin-top: 0.3rem; }
+
+  .site-footer__nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(1.2rem, 3vw, 2.4rem);
+    padding-top: clamp(1.5rem, 3vw, 2.2rem);
+    border-top: 1px solid var(--line-soft);
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    font-size: 0.68rem;
+    font-weight: 500;
+  }
+  .site-footer__nav a { color: var(--ink-soft); transition: color 0.3s var(--ease); }
+  .site-footer__nav a:hover { color: var(--ink); }
+
+  .site-footer__meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 1.6rem;
+    font-size: 0.76rem;
+    letter-spacing: 0.03em;
+    color: var(--stone);
+  }
+
+  .site-footer__credit {
+    font-size: 0.66rem;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--stone);
+  }
+  .site-footer__credit a { color: var(--ink-soft); border-bottom: 1px solid var(--line); padding-bottom: 1px; }
+  .site-footer__credit a:hover { color: var(--green-deep); }
+
+  @media (max-width: 700px) {
+    .site-footer__cols { grid-template-columns: 1fr; gap: 2.2rem; }
+  }
+</style>

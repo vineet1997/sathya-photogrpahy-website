@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { site, whatsappHref } from '../data/site';
+---
+
+<BaseLayout
+  title="Contact"
+  description="Check your wedding date with Sathya Photography. Visit our studio in Vanasthalipuram, Hyderabad, call, or WhatsApp us."
+>
+  <PageHeader
+    eyebrow="Contact"
+    title="Is your date <em>still open</em>?"
+    intro="Tell us a little about your wedding and we'll get back to you personally. Prefer to talk? WhatsApp or call, or come and see us at the studio."
+  />
+
+  <section class="section contact">
+    <div class="container contact__grid">
+      <div class="contact__form reveal">
+        <ContactForm />
+      </div>
+
+      <aside class="contact__aside reveal">
+        <a class="contact__wa" href={whatsappHref()} target="_blank" rel="noopener">
+          <span class="contact__wa-k">Fastest reply</span>
+          <span class="contact__wa-v">WhatsApp us →</span>
+        </a>
+        <div class="contact__details">
+          <div class="contact__detail">
+            <span class="eyebrow">Phone</span>
+            <a href={site.phone.href}>{site.phone.label}</a>
+          </div>
+          <div class="contact__detail">
+            <span class="eyebrow">Email</span>
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+          </div>
+          <div class="contact__detail">
+            <span class="eyebrow">Instagram</span>
+            <a href={site.instagram.url} target="_blank" rel="noopener">{site.instagram.handle}</a>
+          </div>
+          <div class="contact__detail">
+            <span class="eyebrow">Studio</span>
+            <address>
+              {site.address.line1}<br />
+              {site.address.line2}<br />
+              {site.address.region} {site.address.postcode}
+            </address>
+            <span class="contact__hours">{site.hours}</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="map" aria-label="Studio location">
+    <div class="container">
+      <div class="map__frame reveal">
+        <iframe
+          src={site.address.embedUrl}
+          title="Map showing Sathya Photography studio in Vanasthalipuram, Hyderabad"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+      <p class="map__note">
+        Also serving Visakhapatnam &amp; coastal Andhra Pradesh ·
+        <a href={site.address.mapsUrl} target="_blank" rel="noopener">Open in Google Maps</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact__grid {
+    display: grid;
+    grid-template-columns: 1.4fr 0.6fr;
+    gap: clamp(2.5rem, 7vw, 6rem);
+    align-items: start;
+  }
+  .contact__aside { display: grid; gap: 2.2rem; }
+  .contact__wa {
+    display: grid;
+    gap: 0.3rem;
+    padding: 1.4rem 1.6rem;
+    background: var(--whatsapp);
+    color: #fff;
+    border-radius: 4px;
+    transition: background 0.4s var(--ease);
+  }
+  .contact__wa:hover { background: var(--green-deep); }
+  .contact__wa-k { font-size: 0.66rem; letter-spacing: var(--tracking-wide); text-transform: uppercase; opacity: 0.8; }
+  .contact__wa-v { font-family: var(--font-display); font-size: 1.7rem; line-height: 1.1; }
+
+  .contact__details { display: grid; gap: 1.6rem; }
+  .contact__detail { display: grid; gap: 0.35rem; }
+  .contact__detail .eyebrow { color: var(--green-deep); }
+  .contact__detail a,
+  .contact__detail address {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-style: normal;
+    line-height: 1.4;
+    font-variant-numeric: lining-nums;
+    word-break: break-word;
+  }
+  .contact__detail a:hover { color: var(--green-deep); }
+  .contact__hours { font-size: 0.84rem; color: var(--stone); }
+
+  .map { padding-bottom: var(--section-y); }
+  .map__frame {
+    aspect-ratio: 21 / 8;
+    background: var(--paper-deep);
+    overflow: hidden;
+  }
+  .map__frame iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    filter: grayscale(0.85) contrast(0.95);
+  }
+  .map__note { margin-top: 1rem; font-size: 0.86rem; color: var(--ink-soft); text-align: center; }
+  .map__note a { color: var(--green-deep); border-bottom: 1px solid currentColor; }
+
+  @media (max-width: 900px) {
+    .contact__grid { grid-template-columns: 1fr; }
+    .map__frame { aspect-ratio: 4 / 3; }
+  }
+</style>

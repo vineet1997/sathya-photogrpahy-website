@@ -1,0 +1,159 @@
+---
+import Frame from '../Frame.astro';
+import { heroMain, heroSecondary } from '../../data/photos';
+import { site } from '../../data/site';
+const years = new Date().getFullYear() - site.founded;
+---
+
+<section class="hero">
+  <div class="container hero__grid">
+    <p class="hero__eyebrow eyebrow">
+      Wedding photography &amp; films<br />
+      Hyderabad · Visakhapatnam · beyond
+    </p>
+
+    <h1 class="hero__stack">
+      <span class="w w-lg">Rituals,</span>
+      <span class="w w-lg"><em>laughter,</em></span>
+      <span class="w w-lg">tenderness</span>
+      <span class="w w-sm">&amp; every moment</span>
+      <span class="w w-lg"><em>in between.</em></span>
+    </h1>
+
+    <div class="hero__portrait">
+      <Frame
+        image={heroMain.image}
+        alt={heroMain.alt}
+        ratio="2 / 3"
+        priority={true}
+        sizes="(max-width: 900px) 92vw, 42vw"
+        widths={[600, 900, 1200, 1500]}
+      />
+      <span class="hero__est" aria-hidden="true">Est. {site.founded}</span>
+    </div>
+
+    <div class="hero__second">
+      <Frame
+        image={heroSecondary.image}
+        alt={heroSecondary.alt}
+        ratio="4 / 5"
+        sizes="(max-width: 900px) 70vw, 24vw"
+        widths={[500, 800, 1100]}
+      />
+    </div>
+
+    <div class="hero__caption">
+      <p class="lead">
+        For {years} years we have photographed Telugu weddings with patience
+        and warmth — knowing the rituals well enough to be exactly where the
+        moment is about to happen.
+      </p>
+      <div class="hero__actions">
+        <a href="/contact/" class="btn">Check your date</a>
+        <a href="#work" class="cta">See the work</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: clamp(8rem, 16vh, 11.5rem);
+    padding-bottom: clamp(1rem, 3vw, 2.5rem);
+  }
+  .hero__grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-areas:
+      'eyebrow  portrait'
+      'stack    portrait'
+      'second   portrait'
+      'second   caption';
+    column-gap: clamp(2rem, 6vw, 6.5rem);
+    row-gap: clamp(2rem, 4.5vw, 4rem);
+    align-items: start;
+  }
+
+  .hero__eyebrow {
+    grid-area: eyebrow;
+    line-height: 1.9;
+    color: var(--green-deep);
+    padding-top: clamp(1rem, 4vw, 3rem);
+  }
+
+  .hero__stack {
+    grid-area: stack;
+    display: grid;
+  }
+  .w { display: block; }
+  .w-lg {
+    font-size: var(--fs-display);
+    line-height: 0.9;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+  .w-lg em { font-weight: 400; }
+  .w-sm {
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    font-size: clamp(0.72rem, 1.2vw, 0.9rem);
+    font-weight: 500;
+    padding: 1rem 0 0.9rem 0.25em;
+    color: var(--ink-soft);
+  }
+  /* artful per-line offsets */
+  .w:nth-child(2) { margin-left: 0.9em; }
+  .w:nth-child(3) { margin-left: 0.25em; }
+  .w:nth-child(4) { margin-left: 2.4em; }
+  .w:nth-child(5) { margin-left: 1.1em; }
+
+  .hero__portrait { grid-area: portrait; position: relative; }
+  .hero__est {
+    position: absolute;
+    left: calc(-1 * clamp(1.4rem, 2.6vw, 2.4rem));
+    bottom: 0;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--green);
+  }
+
+  .hero__second { grid-area: second; width: min(100%, 22rem); margin-left: auto; margin-right: 12%; }
+  .hero__caption {
+    grid-area: caption;
+    display: grid;
+    gap: 1.8rem;
+    max-width: 30rem;
+  }
+  .hero__actions { display: flex; align-items: center; gap: 1.8rem; flex-wrap: wrap; }
+
+  @media (max-width: 900px) {
+    .hero {
+      padding-top: clamp(7rem, 14vh, 8.5rem);
+      text-align: center;
+    }
+    .hero__grid {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'eyebrow'
+        'stack'
+        'portrait'
+        'caption'
+        'second';
+      row-gap: clamp(1.8rem, 7vw, 2.8rem);
+      justify-items: center;
+    }
+    .hero__eyebrow { padding-top: 0; }
+    .hero__stack { justify-items: center; }
+    .w:nth-child(n) { margin-left: 0; }
+    .hero__portrait { width: min(100%, 30rem); }
+    .hero__est { display: none; }
+    .hero__second { width: min(70%, 20rem); margin: 0; }
+    .hero__caption { justify-items: center; }
+    .hero__actions { justify-content: center; }
+  }
+</style>

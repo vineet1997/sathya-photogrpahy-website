@@ -1,0 +1,121 @@
+---
+// "Since 2002" — the band that turns two decades of work into trust.
+import { Image } from 'astro:assets';
+import Frame from '../Frame.astro';
+import founder from '../../assets/founder.jpg';
+import { trustFrame } from '../../data/photos';
+import { site } from '../../data/site';
+
+const years = new Date().getFullYear() - site.founded;
+const stats = [
+  { n: String(years), l: 'years behind the camera' },
+  site.stats.weddings ? { n: `${site.stats.weddings}+`, l: 'weddings photographed' } : null,
+  { n: String(site.cities.length), l: 'home cities — Hyderabad & Vizag' },
+  { n: '2', l: 'crafts under one roof — photographs & films' },
+].filter(Boolean) as { n: string; l: string }[];
+---
+
+<section class="trust section" aria-labelledby="trust-title">
+  <div class="container trust__grid">
+    <div class="trust__copy reveal">
+      <p class="eyebrow">Since {site.founded}</p>
+      <h2 id="trust-title" class="trust__title">
+        Two decades of weddings. <em>One promise</em> — we'll be there for every moment that matters.
+      </h2>
+      <p class="trust__text">
+        Sathya Photography began in {site.founded} in Hyderabad. Since then we have
+        photographed weddings across India and overseas, and grown into a studio for
+        both photographs and cinematic films — without losing the personal care that
+        families have trusted us with for over two decades.
+      </p>
+
+      <dl class="trust__stats">
+        {stats.map((s) => (
+          <div class="trust__stat">
+            <dt>{s.n}</dt>
+            <dd>{s.l}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <a href="/the-studio/" class="trust__founder">
+        <Image src={founder} alt={`${site.founder.name}, founder of ${site.name}`}
+          widths={[120, 240]} sizes="72px" class="trust__avatar" />
+        <span>
+          <span class="trust__fname">Meet {site.founder.name}</span>
+          <span class="trust__frole">{site.founder.role}&nbsp;→</span>
+        </span>
+      </a>
+    </div>
+
+    <div class="trust__img reveal">
+      <Frame image={trustFrame.image} alt={trustFrame.alt} ratio="4 / 5"
+        sizes="(max-width: 900px) 90vw, 40vw" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .trust { background: var(--green-wash); }
+  .trust__grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(2.5rem, 7vw, 7rem);
+    align-items: center;
+  }
+  .trust__copy { display: grid; gap: clamp(1.4rem, 2.5vw, 2rem); max-width: 40rem; }
+  .trust__copy .eyebrow { color: var(--green-deep); }
+  .trust__title { font-size: var(--fs-h1); line-height: 1.08; }
+  .trust__text { color: var(--ink-soft); max-width: 52ch; }
+
+  .trust__stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
+    gap: 1.2rem;
+    padding-block: clamp(1.2rem, 2.5vw, 1.8rem);
+    border-block: 1px solid var(--line);
+  }
+  .trust__stat dt {
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 5vw, 3.8rem);
+    line-height: 1;
+    color: var(--green-deep);
+  }
+  .trust__stat dd {
+    margin: 0.5rem 0 0;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    color: var(--ink-soft);
+  }
+
+  .trust__founder {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    justify-self: start;
+  }
+  .trust__founder :global(.trust__avatar) {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 50% 25%;
+  }
+  .trust__fname { display: block; font-family: var(--font-display); font-size: 1.45rem; line-height: 1.1; }
+  .trust__frole {
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--green-deep);
+    margin-top: 0.3rem;
+  }
+  .trust__founder:hover .trust__fname { font-style: italic; }
+
+  @media (max-width: 900px) {
+    .trust__grid { grid-template-columns: 1fr; }
+    .trust__copy { text-align: center; justify-items: center; }
+    .trust__founder { justify-self: center; text-align: left; }
+    .trust__img { width: min(100%, 30rem); margin-inline: auto; }
+  }
+</style>

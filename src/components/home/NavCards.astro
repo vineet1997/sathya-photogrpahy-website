@@ -1,0 +1,65 @@
+---
+const cards = [
+  { label: 'The Studio', href: '/the-studio/', sub: 'Meet Sathya and the team behind the frames' },
+  { label: 'Experience', href: '/experience/', sub: 'Services, process & your questions answered' },
+  { label: 'Contact', href: '/contact/', sub: 'Visit us in Vanasthalipuram or say hello' },
+];
+---
+
+<section class="navcards section">
+  <div class="container">
+    <div class="navcards__grid">
+      {cards.map((card) => (
+        <a class="navcard reveal" href={card.href}>
+          <span class="navcard__label">{card.label}</span>
+          <span class="navcard__sub">{card.sub}</span>
+          <span class="navcard__arrow" aria-hidden="true">→</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .navcards { padding-top: 0; }
+  .navcards__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--line-soft);
+  }
+  .navcard {
+    display: grid;
+    gap: 0.9rem;
+    padding: clamp(2.5rem, 5vw, 4rem) clamp(1rem, 3vw, 2.5rem);
+    border-bottom: 1px solid var(--line-soft);
+    border-right: 1px solid var(--line-soft);
+    text-align: center;
+    transition: background 0.5s var(--ease);
+  }
+  .navcard:first-child { border-left: 1px solid var(--line-soft); }
+  .navcard__label {
+    font-family: var(--font-display);
+    font-size: var(--fs-h2);
+  }
+  .navcard__sub {
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+    color: var(--stone);
+  }
+  .navcard__arrow {
+    font-size: 1.1rem;
+    color: var(--green-deep);
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+  }
+  .navcard:hover { background: var(--paper-deep); }
+  .navcard:hover .navcard__label { font-style: italic; color: var(--green-deep); }
+  .navcard:hover .navcard__arrow { opacity: 1; transform: none; }
+
+  @media (max-width: 760px) {
+    .navcards__grid { grid-template-columns: 1fr; }
+    .navcard { border-left: 1px solid var(--line-soft); }
+    .navcard__arrow { opacity: 1; transform: none; }
+  }
+</style>

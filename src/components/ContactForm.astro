@@ -1,0 +1,188 @@
+---
+import { site } from '../data/site';
+const hasKey = site.web3formsKey.trim().length > 0;
+const events = ['Pre-wedding', 'Haldi / Pellikuthuru', 'Sangeet / Mehendi', 'Wedding', 'Reception', 'Film'];
+---
+
+<form
+  class="cform"
+  id="contact-form"
+  method="POST"
+  action="https://api.web3forms.com/submit"
+  data-demo={hasKey ? undefined : 'true'}
+>
+  <input type="hidden" name="access_key" value={site.web3formsKey} />
+  <input type="hidden" name="subject" value={`New wedding enquiry — ${site.name}`} />
+  <input type="hidden" name="from_name" value={`${site.name} website`} />
+  <!-- honeypot -->
+  <input type="checkbox" name="botcheck" class="cform__hp" tabindex="-1" autocomplete="off" />
+
+  <div class="cform__grid">
+    <p class="cform__field">
+      <label for="cf-name">Your names</label>
+      <input id="cf-name" name="name" type="text" required autocomplete="name" placeholder="Sravani & Lokesh" />
+    </p>
+    <p class="cform__field">
+      <label for="cf-phone">Phone / WhatsApp</label>
+      <input id="cf-phone" name="phone" type="tel" required autocomplete="tel" placeholder="+91 98xxx xxxxx" />
+    </p>
+    <p class="cform__field">
+      <label for="cf-email">Email <span class="cform__opt">(optional)</span></label>
+      <input id="cf-email" name="email" type="email" autocomplete="email" placeholder="you@email.com" />
+    </p>
+    <p class="cform__field">
+      <label for="cf-date">Wedding date / muhurtham</label>
+      <input id="cf-date" name="wedding_date" type="text" autocomplete="off" placeholder="February 2027" />
+    </p>
+    <p class="cform__field cform__field--full">
+      <label for="cf-venue">Venue / city</label>
+      <input id="cf-venue" name="venue" type="text" autocomplete="off" placeholder="Hyderabad, Vizag, or somewhere new" />
+    </p>
+    <fieldset class="cform__field cform__field--full cform__events">
+      <legend>What would you like covered?</legend>
+      <div class="cform__chips">
+        {events.map((ev) => (
+          <label class="chip">
+            <input type="checkbox" name="events" value={ev} />
+            <span>{ev}</span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+    <p class="cform__field cform__field--full">
+      <label for="cf-message">Tell us about your celebration</label>
+      <textarea id="cf-message" name="message" rows="4" placeholder="Families, venues, the things that matter most to you…"></textarea>
+    </p>
+  </div>
+
+  <div class="cform__foot">
+    <button type="submit" class="btn">Send enquiry</button>
+    <span class="cform__status" data-status role="status" aria-live="polite"></span>
+  </div>
+</form>
+
+<div class="cform__sent" hidden></div>
+
+<style>
+  .cform { max-width: 50rem; }
+  .cform__hp { position: absolute; left: -9999px; opacity: 0; }
+  .cform__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1.6rem, 3.5vw, 2.4rem) clamp(1.6rem, 4vw, 3rem);
+  }
+  .cform__field { display: grid; gap: 0.6rem; }
+  .cform__field--full { grid-column: 1 / -1; }
+  .cform label:not(.chip),
+  .cform legend {
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    font-size: 0.66rem;
+    font-weight: 500;
+    color: var(--stone);
+  }
+  .cform__opt { text-transform: none; letter-spacing: 0; }
+  .cform input:not([type='checkbox']),
+  .cform textarea {
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    background: transparent;
+    padding: 0.5rem 0;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--ink);
+    transition: border-color 0.4s var(--ease);
+  }
+  .cform textarea { resize: vertical; }
+  .cform input::placeholder,
+  .cform textarea::placeholder { color: var(--stone); opacity: 0.55; }
+  .cform input:focus,
+  .cform textarea:focus { outline: none; border-color: var(--green-deep); }
+
+  .cform__events { border: 0; padding: 0; margin: 0; }
+  .cform__events legend { margin-bottom: 0.9rem; }
+  .cform__chips { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .chip { position: relative; cursor: pointer; }
+  .chip input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+  .chip span {
+    display: inline-block;
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    font-size: 0.84rem;
+    transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease);
+  }
+  .chip:hover span { border-color: var(--green); }
+  .chip input:checked + span { background: var(--green-deep); border-color: var(--green-deep); color: var(--paper); }
+  .chip input:focus-visible + span { outline: 2px solid var(--green-deep); outline-offset: 2px; }
+
+  .cform__foot {
+    margin-top: clamp(2.2rem, 5vw, 3rem);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .cform__status { font-size: 0.84rem; color: var(--green-deep); }
+  .cform.is-sent { display: none; }
+  .cform__sent {
+    font-family: var(--font-display);
+    font-size: var(--fs-h3);
+    font-style: italic;
+    padding-block: 2rem;
+  }
+  .cform__sent[hidden] { display: none; }
+
+  @media (max-width: 600px) {
+    .cform__grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  function initContactForm() {
+    const form = document.querySelector<HTMLFormElement>('#contact-form');
+    if (!form || form.dataset.bound) return;
+    form.dataset.bound = 'true';
+    const status = form.querySelector<HTMLElement>('[data-status]');
+    const isDemo = form.dataset.demo === 'true';
+
+    const showSent = () => {
+      const sent = form.parentElement?.querySelector<HTMLElement>('.cform__sent');
+      if (sent) {
+        sent.textContent = 'Thank you — your note is on its way. We’ll call or WhatsApp you very soon.';
+        sent.hidden = false;
+        form.classList.add('is-sent');
+        sent.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (status) status.textContent = 'Sending…';
+
+      // Demo mode: no access key configured — simulate a successful send.
+      if (isDemo) {
+        setTimeout(showSent, 600);
+        return;
+      }
+
+      // Web3Forms expects one value per key; join the selected events.
+      const data = new FormData(form);
+      const events = data.getAll('events').join(', ');
+      data.delete('events');
+      data.set('events', events || '—');
+
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: data });
+        const json = await res.json();
+        if (json.success) showSent();
+        else if (status) status.textContent = 'Something went wrong — please WhatsApp or call us directly.';
+      } catch {
+        if (status) status.textContent = 'Network error — please WhatsApp or call us directly.';
+      }
+    });
+  }
+
+  initContactForm();
+  document.addEventListener('astro:page-load', initContactForm);
+</script>

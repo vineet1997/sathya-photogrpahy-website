@@ -1,0 +1,149 @@
+@import "./tokens.css";
+
+/* ============ Reset ============ */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+html, body { height: 100%; }
+img, picture, svg, video { display: block; max-width: 100%; }
+button, input, textarea, select { font: inherit; color: inherit; }
+button { background: none; border: none; cursor: pointer; }
+ul[role="list"], ul.reset { list-style: none; padding: 0; }
+a { color: inherit; text-decoration: none; }
+
+/* ============ Base ============ */
+body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--fs-body);
+  line-height: 1.75;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--ink); color: var(--paper); }
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+p { text-wrap: pretty; }
+em, i { font-style: italic; }
+h1 em, h2 em, h3 em { color: var(--green-deep); }
+
+/* ============ Type utilities ============ */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--stone);
+  line-height: 1.5;
+}
+.u-sans { font-family: var(--font-sans); }
+.u-display { font-family: var(--font-display); }
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.7;
+  font-weight: 380;
+  color: var(--ink-soft);
+}
+
+/* ============ Layout ============ */
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.container--narrow { max-width: 1080px; }
+.measure { max-width: var(--maxw-text); }
+.section { padding-block: var(--section-y); }
+
+/* ============ CTA link (Madalena-style underlined caps) ============ */
+.cta {
+  display: inline-block;
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: var(--ink);
+  padding-bottom: 0.4rem;
+  position: relative;
+  transition: color 0.4s var(--ease);
+}
+.cta::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 1px;
+  background: currentColor;
+  transform-origin: right;
+  transform: scaleX(1);
+  transition: transform 0.5s var(--ease-out);
+}
+.cta:hover { color: var(--green-deep); }
+.cta:hover::after { transform-origin: left; transform: scaleX(0.001); }
+
+/* Solid pill CTA — used for the primary "check your date" actions */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 1rem 1.7rem;
+  border-radius: 999px;
+  background: var(--green-deep);
+  color: var(--paper);
+  transition: background 0.4s var(--ease), transform 0.4s var(--ease);
+}
+.btn:hover { background: var(--ink); }
+.btn--ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+.btn--ghost:hover { background: var(--ink); color: var(--paper); }
+
+/* ============ Hairline ============ */
+.rule { height: 1px; background: var(--line-soft); border: 0; }
+
+/* ============ Scroll reveal ============ */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1s var(--ease-out), transform 1.1s var(--ease-out);
+  will-change: opacity, transform;
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+.reveal[data-reveal="fade"] { transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* ============ Accessibility ============ */
+:focus-visible { outline: 2px solid var(--green-deep); outline-offset: 3px; }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip-link {
+  position: absolute; left: 1rem; top: -3rem;
+  background: var(--ink); color: var(--paper);
+  padding: 0.6rem 1rem; z-index: 200;
+  font-family: var(--font-sans); font-size: 0.8rem;
+  transition: top 0.25s var(--ease);
+}
+.skip-link:focus { top: 1rem; }

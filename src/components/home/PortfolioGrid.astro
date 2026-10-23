@@ -1,0 +1,60 @@
+---
+import Frame from '../Frame.astro';
+import { grid } from '../../data/photos';
+---
+
+<section class="portfolio section" id="work" aria-label="Portfolio">
+  <div class="container">
+    <header class="portfolio__head reveal">
+      <p class="eyebrow">The work</p>
+      <h2 class="portfolio__title">Weddings, pre-weddings &amp; <em>everything in between</em></h2>
+    </header>
+    <div class="portfolio__grid">
+      {grid.map((shot) => (
+        <div class="portfolio__item reveal" data-cursor-hover>
+          <Frame
+            image={shot.image}
+            alt={shot.alt}
+            sizes="(max-width: 600px) 46vw, (max-width: 1024px) 46vw, 31vw"
+            widths={[400, 700, 1000, 1300]}
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .portfolio__head {
+    text-align: center;
+    display: grid;
+    gap: 1rem;
+    justify-items: center;
+    margin-bottom: clamp(2.5rem, 6vw, 5rem);
+  }
+  .portfolio__head .eyebrow { color: var(--green-deep); }
+  .portfolio__title { font-size: var(--fs-h1); max-width: 20ch; }
+  .portfolio__grid {
+    column-count: 3;
+    column-gap: clamp(0.9rem, 2.2vw, 1.8rem);
+  }
+  .portfolio__item {
+    break-inside: avoid;
+    margin-bottom: clamp(0.9rem, 2.2vw, 1.8rem);
+  }
+  .portfolio__item :global(.frame__img) {
+    transition:
+      opacity 1.1s var(--ease-out),
+      transform 1.4s var(--ease-out);
+  }
+  @media (hover: hover) {
+    .portfolio__item:hover :global(.frame__img.is-loaded) { transform: scale(1.04); }
+  }
+  @media (max-width: 1024px) {
+    .portfolio__grid { column-count: 2; }
+  }
+  @media (max-width: 460px) {
+    .portfolio__grid { column-gap: 0.6rem; }
+    .portfolio__item { margin-bottom: 0.6rem; }
+  }
+</style>

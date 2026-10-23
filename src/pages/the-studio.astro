@@ -1,0 +1,225 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Frame from '../components/Frame.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { studioHero, studioWide } from '../data/photos';
+import { site } from '../data/site';
+import founderImg from '../assets/founder.jpg';
+
+const years = new Date().getFullYear() - site.founded;
+---
+
+<BaseLayout
+  title="The Studio"
+  description={`Sathya Photography has photographed Telugu weddings since ${site.founded}. Meet the founder and the Hyderabad & Visakhapatnam studio behind the work.`}
+>
+  <PageHeader
+    eyebrow="The Studio"
+    title="Since 2002, a family studio for <em>Telugu weddings</em>."
+    intro={`For ${years} years, families across Hyderabad, Visakhapatnam and far beyond have trusted us with the most important days of their lives.`}
+  />
+
+  <section class="section studio-feature">
+    <div class="container studio-feature__grid">
+      <div class="studio-feature__img reveal">
+        <Frame image={studioHero.image} alt={studioHero.alt} ratio="3 / 4"
+          sizes="(max-width: 860px) 90vw, 44vw" />
+      </div>
+      <div class="studio-feature__text reveal">
+        <p class="eyebrow">What we believe</p>
+        <p class="studio-feature__lead">
+          Wedding photography doesn't have to be safe — or boring.
+        </p>
+        <p>
+          Our goal is bold and simple: to tell your wedding story through
+          photographs that go beyond the expected. Not just a record of who was
+          there, but images that carry the feeling of the day — the kind that make
+          even strangers stop and look twice.
+        </p>
+        <p>
+          We are fluent in both languages a Telugu wedding needs. The candid eye
+          that catches a stolen glance during the Jeelakarra-Bellam, and the
+          careful, complete traditional coverage your elders will look for in the
+          album. One team, both crafts.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section founder">
+    <div class="container">
+      <blockquote class="founder__quote reveal">
+        “Photography has little to do with the things you see — and everything to
+        do with <em>the way you see them</em>.”
+      </blockquote>
+
+      <div class="founder__grid">
+        <div class="founder__text reveal">
+          <p class="eyebrow">Our founder</p>
+          <h2 class="founder__name">{site.founder.name}</h2>
+          <p class="founder__role">{site.founder.role}</p>
+          <div class="founder__bio">
+            <!-- TODO(client): replace with Sathya's own story, in his words. -->
+            <p>
+              Sathya started Sathya Photography in {site.founded}, and has spent the
+              years since behind the camera at weddings across India and overseas —
+              from intimate home ceremonies in Hyderabad to destination pre-weddings
+              in Malaysia.
+            </p>
+            <p>
+              Experience, he says, comes from years of exposure, a passion for the
+              craft and relentless hours of work. It shows in the way he moves
+              through a mandap: calm, unhurried, and always a step ahead of the
+              moment.
+            </p>
+            <p>
+              Today the studio works out of Hyderabad and Visakhapatnam, with
+              photography and cinematic films under one roof.
+            </p>
+          </div>
+        </div>
+
+        <figure class="founder__frame reveal">
+          <div class="founder__mat">
+            <Frame image={founderImg} alt={`${site.founder.name}, founder of ${site.name}, holding his camera`}
+              ratio="4 / 5" sizes="(max-width: 860px) 56vw, 24vw" widths={[400, 600, 800]} />
+          </div>
+          <figcaption class="founder__cap">{site.founder.name} · Est. {site.founded}</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bases">
+    <div class="container">
+      <div class="bases__img reveal">
+        <Frame image={studioWide.image} alt={studioWide.alt} ratio="21 / 9"
+          sizes="(max-width: 900px) 94vw, 90vw" widths={[700, 1100, 1500, 1900]} />
+      </div>
+      <div class="bases__grid">
+        <div class="bases__item reveal">
+          <p class="eyebrow">Hyderabad</p>
+          <h3 class="bases__t">The studio</h3>
+          <p>
+            {site.address.line1}, {site.address.line2},
+            {site.address.region} {site.address.postcode}. Visit by appointment
+            to look through our albums and talk through your plans.
+          </p>
+          <a class="cta" href={site.address.mapsUrl} target="_blank" rel="noopener">Get directions</a>
+        </div>
+        <div class="bases__item reveal">
+          <p class="eyebrow">Visakhapatnam</p>
+          <h3 class="bases__t">On the coast</h3>
+          <!-- TODO(client): Vizag address, if there is a walk-in location. -->
+          <p>
+            Our second base, serving weddings across Vizag and coastal Andhra
+            Pradesh — with the same team and the same care.
+          </p>
+        </div>
+        <div class="bases__item reveal">
+          <p class="eyebrow">Anywhere</p>
+          <h3 class="bases__t">Destinations</h3>
+          <p>
+            Temple towns, hill stations, palaces and overseas — we have photographed
+            couples from the Nilgiris to Kuala Lumpur, and we travel light.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand line="Come and see our albums <em>in person</em>." label="Plan a studio visit" />
+</BaseLayout>
+
+<style>
+  .studio-feature__grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: center;
+  }
+  .studio-feature__img { width: 100%; max-width: 34rem; }
+  .studio-feature__text { display: grid; gap: 1.3rem; max-width: 40rem; }
+  .studio-feature__text .eyebrow { margin-bottom: 0.4rem; color: var(--green-deep); }
+  .studio-feature__lead {
+    font-family: var(--font-display);
+    font-size: var(--fs-h2);
+    line-height: 1.15;
+    margin-bottom: 0.6rem;
+  }
+  .studio-feature__text p:not(.studio-feature__lead):not(.eyebrow) { color: var(--ink-soft); }
+
+  .founder { background: var(--green-wash); }
+  .founder__quote {
+    max-width: 24ch;
+    margin: 0 auto clamp(3rem, 7vw, 5.5rem);
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: var(--fs-h1);
+    font-style: italic;
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+  .founder__quote em { color: var(--green-deep); }
+
+  .founder__grid {
+    display: grid;
+    grid-template-columns: 1fr 0.78fr;
+    gap: clamp(2.5rem, 7vw, 6rem);
+    align-items: center;
+  }
+  .founder__text { display: grid; gap: 0.5rem; max-width: 42rem; }
+  .founder__text .eyebrow { margin-bottom: 0.8rem; color: var(--green-deep); }
+  .founder__name { font-size: clamp(3rem, 6vw, 4.6rem); }
+  .founder__role {
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--stone);
+    margin-bottom: 1.5rem;
+  }
+  .founder__bio { display: grid; gap: 1.2rem; color: var(--ink-soft); }
+
+  /* Matted, framed print */
+  .founder__frame { margin: 0; justify-self: center; width: 100%; max-width: 25rem; }
+  .founder__mat {
+    display: block;
+    background: #fbf8f2;
+    padding: clamp(0.9rem, 2.3vw, 1.8rem);
+    border: 1px solid var(--line);
+    box-shadow: 0 34px 64px -46px rgba(26, 29, 27, 0.55);
+  }
+  .founder__mat :global(.frame) { border: 1px solid var(--line-soft); }
+  .founder__mat :global(.frame__img) { object-position: 50% 20%; }
+  .founder__cap {
+    margin-top: 1.1rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    font-size: 0.66rem;
+    color: var(--stone);
+  }
+
+  .bases__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(2rem, 4vw, 3.5rem);
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+  }
+  .bases__item { display: grid; gap: 0.9rem; align-content: start; justify-items: start; }
+  .bases__item .eyebrow { color: var(--green-deep); }
+  .bases__item p:not(.eyebrow) { color: var(--ink-soft); }
+  .bases__t { font-size: var(--fs-h3); }
+
+  @media (max-width: 860px) {
+    .studio-feature__grid { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+    .studio-feature__text { justify-items: center; }
+    .founder__grid { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+    .founder__text { justify-items: center; }
+    .founder__frame { order: -1; max-width: 19rem; }
+    .bases__grid { grid-template-columns: 1fr; text-align: center; }
+    .bases__item { justify-items: center; }
+  }
+</style>

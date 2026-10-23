@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Page not found">
+  <section class="nf">
+    <div class="container nf__inner">
+      <p class="eyebrow">404</p>
+      <h1 class="nf__title">This page wandered <em>out of frame</em>.</h1>
+      <p class="nf__text">The link may be old, or the page may have moved. Let's get you back to the weddings.</p>
+      <a href="/" class="cta">Return home</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    min-height: 80vh;
+    display: grid;
+    place-items: center;
+    padding-top: var(--header-h);
+    text-align: center;
+  }
+  .nf__inner { display: grid; gap: 1.6rem; justify-items: center; }
+  .nf__title { font-size: clamp(2.2rem, 6vw, 4.5rem); font-weight: 330; }
+  .nf__title em { font-style: italic; }
+  .nf__text { color: var(--ink-soft); max-width: 40ch; }
+</style>

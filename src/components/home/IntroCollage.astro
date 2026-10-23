@@ -1,0 +1,158 @@
+---
+import Frame from '../Frame.astro';
+import { places, tradition } from '../../data/photos';
+---
+
+<section class="intro section">
+  <div class="container">
+    <!-- "Where our work takes us" — a frame + the places line -->
+    <div class="intro__row intro__row--places">
+      <div class="intro__img intro__img--tall reveal">
+        <Frame image={places[0].image} alt={places[0].alt} ratio="2 / 3"
+          sizes="(max-width: 760px) 86vw, 38vw" />
+      </div>
+      <div class="intro__places reveal">
+        <p class="intro__places-text">
+          From the temple steps of Telangana,<br />
+          to the tea hills of the Nilgiris,<br />
+          to the towers of Kuala Lumpur<br />
+          and a yacht out at sea —<br />
+          <em>wherever your story wants to go, we follow.</em>
+        </p>
+        <div class="intro__img-sm reveal">
+          <Frame image={places[1].image} alt={places[1].alt} ratio="3 / 2"
+            sizes="(max-width: 760px) 86vw, 30vw" />
+        </div>
+      </div>
+    </div>
+
+    <!-- The "tradition" composition: 4 frames in an offbeat, overlapping cascade -->
+    <div class="doc">
+      <div class="doc__txt doc__statement reveal">
+        <p class="eyebrow">Telugu wedding photography</p>
+        <p class="doc__line">rooted in <em>tradition</em>, told with <em>feeling</em></p>
+      </div>
+      <p class="doc__txt doc__lead reveal">
+        From Pellikuthuru to Talambralu to Appagintalu, we know every ritual —
+        so we are already turned toward the moment before it happens.
+      </p>
+      <p class="doc__txt doc__closing reveal">
+        <em>Candid where it matters. Traditional where your family needs it.</em>
+      </p>
+
+      <figure class="doc__photo doc__p1 reveal">
+        <Frame image={tradition[0].image} alt={tradition[0].alt} ratio="2 / 3"
+          sizes="(max-width: 760px) 72vw, 20vw" widths={[300, 500, 700]} />
+      </figure>
+      <figure class="doc__photo doc__p2 reveal">
+        <Frame image={tradition[1].image} alt={tradition[1].alt} ratio="3 / 2"
+          sizes="(max-width: 760px) 64vw, 30vw" widths={[400, 700, 900]} />
+      </figure>
+      <figure class="doc__photo doc__p3 reveal">
+        <Frame image={tradition[2].image} alt={tradition[2].alt} ratio="2 / 3"
+          sizes="(max-width: 760px) 80vw, 18vw" widths={[300, 500, 700]} />
+      </figure>
+      <figure class="doc__photo doc__p4 reveal">
+        <Frame image={tradition[3].image} alt={tradition[3].alt} ratio="3 / 4"
+          sizes="(max-width: 760px) 55vw, 16vw" widths={[300, 500, 600]} />
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ---- Movement 1: where our work takes us ---- */
+  .intro__row {
+    display: grid;
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+  }
+  .intro__row--places {
+    grid-template-columns: 0.85fr 1fr;
+    margin-bottom: clamp(4.5rem, 12vw, 10rem);
+  }
+  .intro__img--tall { max-width: 30rem; }
+  .intro__places { display: grid; gap: 2.5rem; max-width: 36rem; }
+  .intro__places-text {
+    font-family: var(--font-display);
+    font-size: var(--fs-h3);
+    line-height: 1.45;
+    font-weight: 400;
+  }
+  .intro__places-text em { color: var(--green-deep); }
+  .intro__img-sm { width: 100%; max-width: 24rem; margin-left: auto; }
+
+  /* ---- Movement 2: the offbeat cascade ---- */
+  .doc {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1.85;
+    margin-top: clamp(3rem, 8vw, 7rem);
+  }
+  .doc__photo {
+    position: absolute;
+    margin: 0;
+    background: #fbf8f2;
+    padding: clamp(5px, 0.5vw, 9px);
+    box-shadow: 0 22px 48px -32px rgba(26, 29, 27, 0.5);
+  }
+  .doc__txt { position: absolute; z-index: 3; }
+  .doc__statement .eyebrow { display: block; color: var(--green-deep); }
+  .doc__line { font-family: var(--font-display); font-size: var(--fs-h3); line-height: 1.2; margin-top: 0.8rem; }
+  .doc__line em { color: var(--green-deep); }
+  .doc__lead { font-size: var(--fs-lead); line-height: 1.6; color: var(--ink-soft); }
+  .doc__closing { font-family: var(--font-display); font-size: var(--fs-h3); line-height: 1.25; }
+
+  .doc__p1 { left: 20%; top: 2%;  width: 17%; z-index: 1; }
+  .doc__p2 { left: 31%; top: 36%; width: 23%; z-index: 2; }
+  .doc__p3 { left: 50%; top: 14%; width: 17%; z-index: 3; }
+  .doc__p4 { left: 64%; top: 44%; width: 16%; z-index: 4; }
+  .doc__statement { left: 0%;  top: 14%; width: 17%; }
+  .doc__lead      { left: 81%; top: 12%; width: 19%; }
+  .doc__closing   { left: 0%;  top: 56%; width: 18%; }
+
+  @media (max-width: 900px) {
+    .intro__row--places {
+      grid-template-columns: 0.78fr 1.22fr;
+      gap: clamp(0.9rem, 3.5vw, 1.8rem);
+      text-align: left;
+    }
+    .intro__img--tall { max-width: 100%; }
+    .intro__places { justify-items: start; gap: 1.4rem; max-width: none; }
+    .intro__places-text { font-size: clamp(1rem, 3.2vw, 1.3rem); }
+    .intro__img-sm { display: none; }
+
+    /* Cascade collapses to a staggered column */
+    .doc {
+      aspect-ratio: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(1.5rem, 5vw, 2.4rem);
+      margin-top: clamp(2.5rem, 9vw, 4rem);
+    }
+    .doc__photo,
+    .doc__txt { position: static; inset: auto; width: auto; margin: 0; }
+    .doc__txt { text-align: center; max-width: 32ch; z-index: auto; }
+    .doc__p1 { order: 1; align-self: flex-start; width: 66%; position: relative; z-index: 1; }
+    .doc__p2 { order: 2; align-self: flex-end; width: 64%; margin-top: -18%; position: relative; z-index: 2; }
+    .doc__statement { order: 3; }
+    .doc__p3 { order: 4; width: 74%; }
+    .doc__lead { order: 5; }
+    .doc__p4 { order: 6; width: 58%; }
+    .doc__closing { order: 7; }
+  }
+
+  /* Phones: stack the places block so the photo can go big */
+  @media (max-width: 640px) {
+    .intro__row--places {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: clamp(1.8rem, 6vw, 2.8rem);
+      margin-bottom: clamp(3.5rem, 12vw, 7rem);
+    }
+    .intro__img--tall { width: 100%; max-width: 26rem; margin-inline: auto; }
+    .intro__places { justify-items: center; }
+    .intro__places-text { font-size: clamp(1.3rem, 6vw, 1.7rem); }
+  }
+</style>

@@ -1,0 +1,71 @@
+---
+import Frame from '../Frame.astro';
+import { closing } from '../../data/photos';
+---
+
+<section class="closing section">
+  <div class="container closing__inner">
+    <div class="closing__lead reveal">
+      <h2 class="closing__head">
+        The cake gets eaten, the flowers fade — <em>the photographs stay.</em>
+      </h2>
+    </div>
+
+    <div class="closing__body">
+      <div class="closing__img closing__img--a reveal">
+        <Frame image={closing[0].image} alt={closing[0].alt} ratio="2 / 3"
+          sizes="(max-width: 760px) 86vw, 34vw" />
+      </div>
+      <div class="closing__text reveal">
+        <p>
+          Years from now, your children will turn these pages. We want them to
+          see the real day — the nervous laughter before the muhurtham, your
+          mother's quiet tears at the Kanyadanam, the chaos and colour of the
+          sangeet.
+        </p>
+        <p>
+          That is why we work with presence and care, never hurrying a ritual for
+          a pose, so your story still feels like the day it happened.
+        </p>
+      </div>
+      <div class="closing__img closing__img--b reveal">
+        <Frame image={closing[1].image} alt={closing[1].alt} ratio="3 / 2"
+          sizes="(max-width: 760px) 86vw, 40vw" />
+      </div>
+    </div>
+
+    <div class="closing__cta reveal">
+      <p class="closing__q"><em>Is your date still open?</em></p>
+      <a href="/contact/" class="btn">Check availability</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .closing__inner { display: grid; gap: clamp(3rem, 8vw, 6rem); }
+  .closing__head {
+    font-size: var(--fs-h1);
+    max-width: 20ch;
+    line-height: 1.1;
+  }
+  .closing__body {
+    display: grid;
+    grid-template-columns: 0.9fr 1fr 1.1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .closing__img { width: 100%; }
+  .closing__img--a { max-width: 28rem; }
+  .closing__img--b { max-width: 40rem; align-self: end; }
+  .closing__text { display: grid; gap: 1.4rem; }
+  .closing__text p { color: var(--ink-soft); }
+
+  .closing__cta { text-align: center; display: grid; gap: 1.6rem; justify-items: center; }
+  .closing__q { font-family: var(--font-display); font-size: var(--fs-h2); }
+
+  @media (max-width: 760px) {
+    .closing__body { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+    .closing__text { max-width: 40ch; }
+    .closing__head { margin-inline: auto; text-align: center; }
+  }
+</style>

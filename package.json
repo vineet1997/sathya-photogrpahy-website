@@ -1,0 +1,22 @@
+{
+  "name": "sathya-photography",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.2.1",
+    "@fontsource-variable/cormorant-garamond": "^5.3.0",
+    "@fontsource-variable/figtree": "^5.3.0",
+    "@vercel/analytics": "^2.0.1",
+    "astro": "^5.4.0",
+    "lenis": "^1.1.18",
+    "sharp": "^0.33.5"
+  }
+}
