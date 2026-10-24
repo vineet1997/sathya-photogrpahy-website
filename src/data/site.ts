@@ -23,7 +23,6 @@ export const site = {
   },
   instagram: { handle: '@sathyaphotography', url: 'https://www.instagram.com/sathyaphotography/' },
   youtube: 'https://www.youtube.com/channel/UCzmg-UvHIsZrceMvXmxGOXw',
-  vimeo: 'https://vimeo.com/user147253327',
   facebook: 'https://www.facebook.com/AUNITOFSTUDIOSAFASHIONOFPHOTOGRAPHY',
   address: {
     line1: 'Plot No. 506, Prashanth Nagar',

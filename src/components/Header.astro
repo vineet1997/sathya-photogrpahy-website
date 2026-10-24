@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import script from '../assets/logo-script.png';
+import SocialIcons from './SocialIcons.astro';
 import { nav, site, whatsappHref } from '../data/site';
 
 // Split nav either side of the centred script wordmark.
@@ -29,6 +30,7 @@ const right = nav.slice(2);
           <li><a href={item.href} class="primary-nav__link">{item.label}</a></li>
         ))}
       </ul>
+      <SocialIcons size={17} class="primary-nav__social" />
     </nav>
 
     <button class="menu-toggle" data-menu-open aria-label="Open menu" aria-expanded="false" aria-controls="overlay-menu">
@@ -52,7 +54,7 @@ const right = nav.slice(2);
   <div class="overlay-menu__foot">
     <a href={whatsappHref()} target="_blank" rel="noopener">WhatsApp</a>
     <a href={site.phone.href}>{site.phone.label}</a>
-    <a href={site.instagram.url} target="_blank" rel="noopener">{site.instagram.handle}</a>
+    <SocialIcons size={22} class="overlay-menu__social" />
   </div>
 </div>
 
@@ -94,7 +96,15 @@ const right = nav.slice(2);
   }
 
   /* Desktop nav */
-  .primary-nav--right { justify-self: end; }
+  .primary-nav--right { justify-self: end; display: flex; align-items: center; }
+  /* hairline divider between the nav links and the icons */
+  .primary-nav--right :global(.primary-nav__social) {
+    margin-left: clamp(1.2rem, 2vw, 2rem);
+    padding-left: clamp(1.2rem, 2vw, 2rem);
+    border-left: 1px solid var(--line);
+    gap: 0.85rem;
+    color: var(--ink);
+  }
   .primary-nav__list {
     display: flex;
     gap: clamp(1.4rem, 2.6vw, 2.8rem);
@@ -188,7 +198,9 @@ const right = nav.slice(2);
     letter-spacing: 0.04em;
     color: var(--ink-soft);
     padding-inline: var(--gutter);
+    align-items: center;
   }
+  .overlay-menu__foot :global(.overlay-menu__social) { gap: 1.1rem; color: var(--ink); }
 
   @media (max-width: 900px) {
     .primary-nav { display: none; }

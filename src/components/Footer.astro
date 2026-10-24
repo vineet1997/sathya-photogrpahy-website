@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import logo from '../assets/logo-full.png';
+import SocialIcons from './SocialIcons.astro';
 import { nav, site, whatsappHref } from '../data/site';
 const year = new Date().getFullYear();
 ---
@@ -31,10 +32,8 @@ const year = new Date().getFullYear();
 
       <div class="site-footer__col">
         <p class="eyebrow">Follow along</p>
-        <a href={site.instagram.url} target="_blank" rel="noopener">Instagram</a>
-        <a href={site.youtube} target="_blank" rel="noopener">YouTube</a>
-        <a href={site.vimeo} target="_blank" rel="noopener">Vimeo</a>
-        <a href={site.facebook} target="_blank" rel="noopener">Facebook</a>
+        <SocialIcons networks={['instagram', 'youtube', 'facebook']} size={24} class="site-footer__social" />
+        <a href={site.instagram.url} target="_blank" rel="noopener">{site.instagram.handle}</a>
       </div>
     </div>
 
@@ -89,6 +88,12 @@ const year = new Date().getFullYear();
   .site-footer__col a { transition: color 0.3s var(--ease); }
   .site-footer__col a:hover { color: var(--green-deep); }
   .site-footer__link { color: var(--green-deep); margin-top: 0.3rem; }
+  .site-footer__col :global(.site-footer__social) {
+    justify-content: center;
+    gap: 1.2rem;
+    color: var(--ink);
+    margin-block: 0.2rem 0.4rem;
+  }
 
   .site-footer__nav {
     display: flex;
