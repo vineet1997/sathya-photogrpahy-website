@@ -9,8 +9,11 @@ export const site = {
   name: 'Sathya Photography',
   shortName: 'Sathya',
   tagline: 'Telugu weddings, told with heart — since 2002',
+  // Homepage <title> after the name — the words couples actually search for.
+  seoTitle: 'Wedding Photographers in Hyderabad',
+  // Kept under ~155 characters so Google and WhatsApp show it in full.
   description:
-    'Candid & traditional wedding photography and cinematic films since 2002. Based in Hyderabad and Visakhapatnam, travelling across India and abroad.',
+    'Candid & traditional Telugu wedding photography and cinematic films since 2002. Hyderabad & Visakhapatnam, travelling anywhere. Check your date.',
   founded: 2002,
   email: 'sathyaphotography636@gmail.com',
   phone: { label: '+91 93460 10636', href: 'tel:+919346010636' },
@@ -48,7 +51,7 @@ export const site = {
   // Web3Forms access key — paste a key from web3forms.com to make the
   // contact form deliver to the studio inbox. Left blank → graceful demo mode.
   web3formsKey: '',
-  url: 'https://www.sathyaphotography.com',
+  url: 'https://sathya-photogrpahy.shutterselect.com',
 } as const;
 
 export const whatsappHref = (text: string = site.whatsapp.message) =>

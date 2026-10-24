@@ -40,6 +40,17 @@ Deploy `dist/` to Vercel / Netlify / any static host.
 | Homepage sections | `src/components/home/*.astro` |
 | The Studio / Experience (services, timelines, FAQ) / Contact | `src/pages/*.astro` |
 | Colours, fonts, spacing | `src/styles/tokens.css` |
+| Link previews (WhatsApp, Instagram, Facebook) | `public/og/*.jpg` + `ogImage` on each page |
+
+### Link previews
+Each page has its own 1200×630 share card in `public/og/`: an ivory centre with the logo,
+framed by two photos. WhatsApp crops small previews to the centred square, so keep the logo
+and text in the middle third. Keep each file under ~300 KB, or WhatsApp skips the image.
+WhatsApp caches a preview per URL. After changing a card, add `?v=2` to the link you share
+to see the new one.
+
+The live address is `https://sathya-photogrpahy.shutterselect.com`, set in `astro.config.mjs`
+and `site.url` in `site.ts`. Update both if the domain changes.
 
 ### Photos
 `src/assets/photos/` holds 2400px working copies of the client's Drive folder

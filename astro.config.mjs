@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://www.sathyaphotography.com',
+  site: 'https://sathya-photogrpahy.shutterselect.com',
   integrations: [sitemap()],
   build: {
     inlineStylesheets: 'auto',

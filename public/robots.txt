@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.sathyaphotography.com/sitemap-index.xml
+Sitemap: https://sathya-photogrpahy.shutterselect.com/sitemap-index.xml
