@@ -1,13 +1,18 @@
 ---
-// Wedding films — a poster that swaps to a YouTube embed only when clicked
-// (keeps the page fast). With no film id yet, it links to the channel.
+// Wedding films — posters that swap to a YouTube embed only when clicked
+// (keeps the page fast). The first film is featured; the rest sit beneath it.
+import type { ImageMetadata } from 'astro';
 import Frame from '../Frame.astro';
 import { films, site } from '../../data/site';
-import { filmPoster } from '../../data/photos';
 
-const film = films[0];
-const poster = filmPoster(film.poster);
-const hasId = film.youtubeId.length > 0;
+const posters = import.meta.glob<{ default: ImageMetadata }>('../../assets/films/*.jpg', { eager: true });
+const poster = (name: string) => {
+  const mod = posters[`../../assets/films/${name}.jpg`];
+  if (!mod) throw new Error(`Film poster "${name}" not found in src/assets/films/`);
+  return mod.default;
+};
+
+const [featured, ...rest] = films;
 ---
 
 <section class="films section" aria-labelledby="films-title">
@@ -21,21 +26,41 @@ const hasId = film.youtubeId.length > 0;
       </p>
     </header>
 
-    <div class="films__player reveal" data-film={hasId ? film.youtubeId : undefined}>
-      <Frame image={poster.image} alt={poster.alt} ratio="16 / 9"
-        sizes="(max-width: 900px) 94vw, 80vw" widths={[700, 1100, 1500, 1900]} />
-      {hasId ? (
-        <button class="films__play" type="button" aria-label={`Play ${film.title}`}>
-          <span class="films__icon" aria-hidden="true"></span>
-          <span class="films__label">Play film</span>
+    <figure class="film film--featured reveal" data-film={featured.youtubeId}>
+      <div class="film__player">
+        <Frame image={poster(featured.poster)} alt={`${featured.couple} — ${featured.kind} by ${site.name}`}
+          ratio="16 / 9" sizes="(max-width: 900px) 94vw, 80vw" widths={[700, 1000, 1280]} />
+        <button class="film__play" type="button" aria-label={`Play ${featured.couple} — ${featured.kind}`}>
+          <span class="film__icon" aria-hidden="true"></span>
         </button>
-      ) : (
-        <a class="films__play" href={site.youtube} target="_blank" rel="noopener">
-          <span class="films__icon" aria-hidden="true"></span>
-          <span class="films__label">Watch our films on YouTube</span>
-        </a>
-      )}
+      </div>
+      <figcaption class="film__cap">
+        <span class="film__couple">{featured.couple}</span>
+        <span class="film__kind">{featured.kind}</span>
+      </figcaption>
+    </figure>
+
+    <div class="films__more">
+      {rest.map((f) => (
+        <figure class="film reveal" data-film={f.youtubeId}>
+          <div class="film__player">
+            <Frame image={poster(f.poster)} alt={`${f.couple} — ${f.kind} by ${site.name}`}
+              ratio="16 / 9" sizes="(max-width: 700px) 94vw, 40vw" widths={[500, 800, 1100]} />
+            <button class="film__play" type="button" aria-label={`Play ${f.couple} — ${f.kind}`}>
+              <span class="film__icon" aria-hidden="true"></span>
+            </button>
+          </div>
+          <figcaption class="film__cap">
+            <span class="film__couple">{f.couple}</span>
+            <span class="film__kind">{f.kind}</span>
+          </figcaption>
+        </figure>
+      ))}
     </div>
+
+    <p class="films__all reveal">
+      <a class="cta" href={site.youtube} target="_blank" rel="noopener">More films on YouTube</a>
+    </p>
   </div>
 </section>
 
@@ -51,69 +76,90 @@ const hasId = film.youtubeId.length > 0;
   .films__title { font-size: var(--fs-h1); max-width: 18ch; }
   .films__intro { color: var(--ink-soft); max-width: 54ch; }
 
-  .films__player {
-    position: relative;
+  .film { margin: 0; }
+  .film--featured { max-width: 1200px; margin-inline: auto; }
+  .films__more {
     max-width: 1200px;
-    margin-inline: auto;
+    margin: clamp(1.5rem, 3vw, 2.5rem) auto 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1rem, 2.5vw, 2rem);
   }
-  .films__player :global(iframe) {
+
+  .film__player { position: relative; }
+  .film__player :global(iframe) {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     border: 0;
   }
-  .films__play {
+  .film__play {
     position: absolute;
     inset: 0;
     display: grid;
-    place-content: center;
-    justify-items: center;
-    gap: 1rem;
-    color: #fff;
-    background: linear-gradient(180deg, rgba(10, 14, 12, 0.05), rgba(10, 14, 12, 0.45));
+    place-items: center;
+    background: linear-gradient(180deg, rgba(10, 14, 12, 0.05), rgba(10, 14, 12, 0.4));
     transition: background 0.5s var(--ease);
   }
-  .films__play:hover { background: linear-gradient(180deg, rgba(10, 14, 12, 0.15), rgba(10, 14, 12, 0.6)); }
-  .films__icon {
-    width: clamp(64px, 8vw, 92px);
+  .film__play:hover { background: linear-gradient(180deg, rgba(10, 14, 12, 0.15), rgba(10, 14, 12, 0.55)); }
+  .film__icon {
+    width: clamp(52px, 6vw, 88px);
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.9);
     position: relative;
     transition: transform 0.5s var(--ease-out);
   }
-  .films__icon::after {
+  .film__icon::after {
     content: '';
     position: absolute;
     left: 54%;
     top: 50%;
     translate: -50% -50%;
     border-style: solid;
-    border-width: 10px 0 10px 16px;
+    border-width: 9px 0 9px 15px;
     border-color: transparent transparent transparent #fff;
   }
-  .films__play:hover .films__icon { transform: scale(1.08); }
-  .films__label {
-    font-size: 0.72rem;
+  .film:not(.film--featured) .film__icon { width: clamp(44px, 4.5vw, 64px); }
+  .film__play:hover .film__icon { transform: scale(1.08); }
+
+  .film__cap {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding-top: 0.9rem;
+  }
+  .film__couple { font-family: var(--font-display); font-size: clamp(1.25rem, 2vw, 1.6rem); }
+  .film__kind {
+    font-size: 0.68rem;
     font-weight: 500;
     letter-spacing: var(--tracking-wide);
     text-transform: uppercase;
+    color: var(--stone);
+  }
+  .films__all { text-align: center; margin-top: clamp(2rem, 4vw, 3rem); }
+
+  @media (max-width: 700px) {
+    .films__more { grid-template-columns: 1fr; }
   }
 </style>
 
 <script>
   function initFilms() {
     document.querySelectorAll<HTMLElement>('[data-film]').forEach((el) => {
-      const btn = el.querySelector('button.films__play');
-      if (!btn || el.dataset.bound) return;
+      const btn = el.querySelector<HTMLButtonElement>('.film__play');
+      const player = el.querySelector<HTMLElement>('.film__player');
+      if (!btn || !player || el.dataset.bound) return;
       el.dataset.bound = 'true';
       btn.addEventListener('click', () => {
         const iframe = document.createElement('iframe');
         iframe.src = `https://www.youtube-nocookie.com/embed/${el.dataset.film}?autoplay=1&rel=0`;
-        iframe.title = 'Wedding film';
+        iframe.title = btn.getAttribute('aria-label')?.replace('Play ', '') ?? 'Wedding film';
         iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
-        el.appendChild(iframe);
+        iframe.allowFullscreen = true;
+        player.appendChild(iframe);
         btn.remove();
       });
     });

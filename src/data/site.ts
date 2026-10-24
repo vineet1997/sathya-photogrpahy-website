@@ -62,12 +62,13 @@ export const nav = [
 ] as const;
 
 /**
- * Wedding films. Paste a YouTube video id into `youtubeId` to embed it;
- * while empty, the card links out to the studio's YouTube channel.
+ * Wedding films from the studio's YouTube channel. The first is featured.
+ * `poster` is a file in src/assets/films/ (cropped from the YouTube thumbnail).
  */
 export const films = [
-  // TODO(client): real film ids + couple names.
-  { title: 'A wedding film', couple: 'Coming soon', youtubeId: '', poster: 'couple-palace-night' },
+  { couple: 'Preethi + Vishal', kind: 'Wedding film', youtubeId: 'C2Hsu-IwE-w', poster: 'preethi-vishal' },
+  { couple: 'Sreeja & Goutham', kind: 'Wedding story', youtubeId: '20Vzwkghnc4', poster: 'sreeja-goutham' },
+  { couple: 'Dr Sravanthi & Dr Abhi', kind: 'Wedding film', youtubeId: 'o7qwb1TOn9I', poster: 'sravanthi-abhi' },
 ] as const;
 
 /** Real client words only — never invent these. */

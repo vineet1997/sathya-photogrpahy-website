@@ -144,4 +144,3 @@ export const experienceShots: Shot[] = [
   shot('petronas-towers'),       // Destination
 ];
 export const contactHero = shot('lavender-hills');
-export const filmPoster = (name: string) => shot(name);
