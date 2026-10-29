@@ -66,16 +66,17 @@ Works in **demo mode** until a [Web3Forms](https://web3forms.com) key is pasted 
 
 Search the code for `TODO(client)`. Open items:
 
-- **Founder**: full name, role and bio in Sathya's own words (`site.ts`, `the-studio.astro`).
+- **Founder**: full name and role (`site.ts`). The Studio page bio is adapted from Sathya's
+  own "SP BIO" document in the Drive.
 - **Stats**: number of weddings photographed (`site.stats.weddings`; hidden while `null`).
 - **Testimonials**: only one real quote so far (Lokesh & Sravani). Add 2–3 more with permission.
   Never invent these.
-- **Films**: YouTube video ids (`films` in `site.ts`). Until then the card links to the channel.
 - **Visakhapatnam**: address, if there is a walk-in location.
 - **Hours**: Google lists "closes 9 pm"; the opening time isn't known.
 - **Experience page**: delivery timelines and FAQ answers need the client's confirmation.
-- **Photos**: most frames carry a small watermark. Ask for clean exports, plus 10–15
-  wedding-day ceremony candids (muhurtham, Talambralu, Appagintalu).
+- **Photos**: most frames carry a small watermark. Clean exports would look better.
+  The Drive also holds ~260 more unused photos (including baby, family and maternity work)
+  and three wedding film MP4s, in case a gallery or films page is added later.
 - **Logo**: a vector (SVG) version. The current files are cut from a PNG.
 - Web3Forms key.
 

@@ -30,13 +30,13 @@ const years = new Date().getFullYear() - site.founded;
       <div class="studio-feature__text reveal">
         <p class="eyebrow">What we believe</p>
         <p class="studio-feature__lead">
-          Wedding photography doesn't have to be safe — or boring.
+          Capturing moments. Creating memories. <em>Telling stories.</em>
         </p>
         <p>
-          Our goal is bold and simple: to tell your wedding story through
-          photographs that go beyond the expected. Not just a record of who was
-          there, but images that carry the feeling of the day — the kind that make
-          even strangers stop and look twice.
+          Photography is more than taking pictures. It is about capturing
+          emotion, preserving the moments that matter, and telling your story the
+          way it truly felt — so that you and your loved ones can relive it for a
+          lifetime.
         </p>
         <p>
           We are fluent in both languages a Telugu wedding needs. The candid eye
@@ -51,8 +51,7 @@ const years = new Date().getFullYear() - site.founded;
   <section class="section founder">
     <div class="container">
       <blockquote class="founder__quote reveal">
-        “Photography has little to do with the things you see — and everything to
-        do with <em>the way you see them</em>.”
+        “Every picture has a story. <em>Every memory lasts forever.</em>”
       </blockquote>
 
       <div class="founder__grid">
@@ -61,18 +60,22 @@ const years = new Date().getFullYear() - site.founded;
           <h2 class="founder__name">{site.founder.name}</h2>
           <p class="founder__role">{site.founder.role}</p>
           <div class="founder__bio">
-            <!-- TODO(client): replace with Sathya's own story, in his words. -->
-            <p>
-              Sathya started Sathya Photography in {site.founded}, and has spent the
-              years since behind the camera at weddings across India and overseas —
-              from intimate home ceremonies in Hyderabad to destination pre-weddings
-              in Malaysia.
+            <!-- Adapted from Sathya's own bio ("SP BIO" in the client's Drive). -->
+            <p class="founder__lead">
+              “I have been in the photography business since {site.founded}. Our
+              experience comes from years of exposure, a passion for the craft and
+              relentless hours of work across India and overseas.”
             </p>
             <p>
-              Experience, he says, comes from years of exposure, a passion for the
-              craft and relentless hours of work. It shows in the way he moves
-              through a mandap: calm, unhurried, and always a step ahead of the
-              moment.
+              Over two decades the studio has photographed weddings and pre-weddings,
+              and the moments that come after them too: newborns and first
+              birthdays, maternity sessions and family celebrations.
+            </p>
+            <p>
+              Sathya's aim for every shoot is simple: that it feels like a memorable
+              experience, and that the photographs are ones you will cherish for a
+              lifetime. In his words, <em>your moments are our inspiration, your
+              happiness is our priority, and your memories are our masterpiece.</em>
             </p>
             <p>
               Today the studio works out of Hyderabad and Visakhapatnam, with
@@ -182,6 +185,13 @@ const years = new Date().getFullYear() - site.founded;
     margin-bottom: 1.5rem;
   }
   .founder__bio { display: grid; gap: 1.2rem; color: var(--ink-soft); }
+  .founder__bio em { color: var(--ink); }
+  .founder__lead {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2vw, 1.65rem);
+    line-height: 1.35;
+    color: var(--ink);
+  }
 
   /* Matted, framed print */
   .founder__frame { margin: 0; justify-self: center; width: 100%; max-width: 25rem; }
